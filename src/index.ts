@@ -6,14 +6,14 @@ const cartItem1 = new CartItem({
   productId: "12345",
   productName: "test",
   quantity: new Quantity({ quantity: 1 }),
-  unitPrice: 123,
+  unitPrice: 100,
 });
 
 const cartItem2 = new CartItem({
   productId: "123",
   productName: "test",
   quantity: new Quantity({ quantity: 1 }),
-  unitPrice: 123,
+  unitPrice: 200,
 });
 
 const cart = new Cart({
@@ -22,4 +22,5 @@ const cart = new Cart({
 const x = cart.addCartItem(cartItem1);
 const y = cart.addCartItem(cartItem1);
 const z = cart.addCartItem(cartItem1);
-console.log("here -", z);
+const total = cart.calculateTotalPrice();
+console.log("here -", total);

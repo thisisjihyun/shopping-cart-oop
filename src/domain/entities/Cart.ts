@@ -43,7 +43,12 @@ class Cart {
     this.items.splice(matchedCartItem, 1);
     return this.items;
   }
-  calculateTotalPrice() {}
+  calculateTotalPrice() {
+    return this.items.reduce(
+      (total, item) => total + item.unitPrice * item.quantity.value,
+      0
+    );
+  }
   clearAllItems() {}
 }
 

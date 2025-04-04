@@ -9,6 +9,11 @@ class Quantity {
     this.quantity = quantity;
   }
 
+  // reading the value, because quantity can't be accessable directly in other place
+  public get value(): number {
+    return this.quantity;
+  }
+
   public increase(): Quantity {
     return new Quantity({ quantity: this.quantity + 1 });
   }
