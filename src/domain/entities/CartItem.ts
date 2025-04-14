@@ -1,4 +1,4 @@
-import Quantity from "../valueObjects/Quantity.ts";
+import Quantity from "../valueObjects/Quantity.js";
  import { v4 as uuidv4 } from "uuid";
  
  interface CartItemProps {

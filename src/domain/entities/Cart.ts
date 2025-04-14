@@ -1,5 +1,5 @@
-import Quantity from "../valueObjects/Quantity.ts";
-import CartItem from "./CartItem.ts";
+import Quantity from "../valueObjects/Quantity.js";
+import CartItem from "./CartItem.js";
 
 interface CartProps {
   items: CartItem[];
