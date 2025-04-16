@@ -1,44 +1,51 @@
-import Quantity from "../valueObjects/Quantity.js";
-import CartItem from "./CartItem.js";
+import Quantity from "../valueObjects/Quantity";
+import CartItem from "./CartItem";
 
 interface CartProps {
-  items: CartItem[];
+  items?: CartItem[];
 }
 
 class Cart {
-  public items: CartItem[];
+  public items?: CartItem[];
 
-  constructor({ items }: CartProps) {
+  constructor(items: CartItem[]) {
     this.items = items;
+  }
+  toObject() {
+    return {
+      items: this.items?.map((item) => item.toObject()),
+    };
   }
 
   addCartItem(cartItem: CartItem) {
-    const existingCartItem = this.items.find(
-      (product) => product.productId == cartItem.productId
+    const existingCartItem = this.items?.find(
+      (product) => product.productId === cartItem.productId
     );
+
     if (existingCartItem) {
-      const existingItemIndex = this.items.findIndex(
+      const existingItemIndex = this.items?.findIndex(
         (index) => index.productId === cartItem.productId
       );
 
-      const updatedQuantity = existingCartItem.quantity.increase();
-
-      const updatedCartItem = new CartItem(existingCartItem).updateQuantity(
-        updatedQuantity
-      );
-      this.items[existingItemIndex] = updatedCartItem;
-      return this.items;
+      if (existingItemIndex !== -1) {
+        const increasedQuantityItem = new CartItem(
+          existingCartItem
+        ).updateQuantity();
+        this.items[existingItemIndex] = increasedQuantityItem;
+        return this.items;
+      }
     } else {
-      this.items.push(cartItem);
+      this.items?.push(cartItem);
       return this.items;
     }
   }
+
   updateCartItem() {}
-  deleteCartItem(cartItemId: string) {
-    const matchedCartItem = this.items.findIndex(
-      (product) => product.productId == cartItemId
+  deleteCartItem(id: string) {
+    const matchedCartItem = this.items?.findIndex(
+      (product) => product.productId == id
     );
-    // check if cart item exists first
+    // check if the cart item exists first
     if (matchedCartItem === -1) return this.items;
     this.items.splice(matchedCartItem, 1);
     return this.items;

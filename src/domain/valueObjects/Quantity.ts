@@ -1,21 +1,25 @@
 // should not be immutable
 
 class Quantity {
-  private readonly quantity: number;
+  private readonly value: number;
 
-  constructor({ quantity }: { quantity: number }) {
-    if (quantity < 0) throw new Error("Quantity can not be negative");
-    if (quantity > 100) throw new Error("Quantity can not be more than 100");
-    this.quantity = quantity;
+  constructor(value: number) {
+    if (value < 0 || value > 100)
+      throw new Error("Quantity can not be negative or more than 100");
+    this.value = value;
   }
 
-  public increase(): Quantity {
-    return new Quantity({ quantity: this.quantity + 1 });
-  }
+  // public getValue() {
+  //   return this.value;
+  // }
 
-  public decrease(): Quantity {
-    return new Quantity({ quantity: this.quantity - 1 });
-  }
+  // public increase(): Quantity {
+  //   return new Quantity(this.value + 1);
+  // }
+
+  // public decrease(): Quantity {
+  //   return new Quantity(this.value - 1);
+  // }
 }
 
 export default Quantity;
