@@ -1,12 +1,6 @@
 import Cart from "@/domain/entities/Cart";
 import CartItem, { CartItemProps } from "@/domain/entities/CartItem";
 import db from "@/lib/db";
-import { NextResponse } from "next/server";
-
-const existingItems = db
-  .prepare("SELECT * FROM CartItem")
-  .all() as CartItemProps[];
-const items = existingItems?.map((item) => new CartItem(item));
 
 const addItemToCart = async (cartItem: CartItemProps) => {
   const existingItems = db
