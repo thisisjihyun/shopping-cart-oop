@@ -41,15 +41,7 @@ class Cart {
   }
 
   updateCartItem() {}
-  deleteCartItem(id: string) {
-    const matchedCartItem = this.items?.findIndex(
-      (product) => product.productId == id
-    );
-    // check if the cart item exists first
-    if (matchedCartItem === -1) return this.items;
-    this.items.splice(matchedCartItem, 1);
-    return this.items;
-  }
+
   calculateTotalPrice() {}
   clearAllItems() {}
 }

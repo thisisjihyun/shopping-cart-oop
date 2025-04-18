@@ -4,8 +4,6 @@ import path from "path";
 const dbPath = path.resolve(process.cwd(), "dev.db");
 
 const db = new Database(dbPath);
-// db.prepare('DELETE FROM CartItem').run();
-// db.exec(`DROP TABLE IF EXISTS CartItem`);
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS CartItem (

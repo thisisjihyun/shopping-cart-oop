@@ -1,6 +1,12 @@
 import Cart from "@/domain/entities/Cart";
 import CartItem, { CartItemProps } from "@/domain/entities/CartItem";
 import db from "@/lib/db";
+import { NextResponse } from "next/server";
+
+const existingItems = db
+  .prepare("SELECT * FROM CartItem")
+  .all() as CartItemProps[];
+const items = existingItems?.map((item) => new CartItem(item));
 
 const addItemToCart = async (cartItem: CartItemProps) => {
   const existingItems = db
@@ -41,4 +47,10 @@ const addItemToCart = async (cartItem: CartItemProps) => {
   return updatedCart;
 };
 
-export default addItemToCart;
+const deleteItem = async (itemId: string): Promise<boolean> => {
+  const deleteItem = db.prepare("DELETE FROM CartItem WHERE productId = ?");
+  const result = deleteItem.run(itemId);
+  return result.changes > 0;
+};
+
+export { addItemToCart, deleteItem };
