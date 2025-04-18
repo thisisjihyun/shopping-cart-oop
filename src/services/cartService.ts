@@ -41,10 +41,18 @@ const addItemToCart = async (cartItem: CartItemProps) => {
   return updatedCart;
 };
 
+const updateItemQuantity = async (itemId: string, quantity: number) => {
+  const updateQuantity = db.prepare(
+    "UPDATE CartItem SET quantity = ? WHERE productId = ?"
+  );
+  const result = updateQuantity.run(quantity, itemId);
+  return result.changes > 0;
+};
+
 const deleteItem = async (itemId: string): Promise<boolean> => {
   const deleteItem = db.prepare("DELETE FROM CartItem WHERE productId = ?");
   const result = deleteItem.run(itemId);
   return result.changes > 0;
 };
 
-export { addItemToCart, deleteItem };
+export { addItemToCart, deleteItem, updateItemQuantity };
