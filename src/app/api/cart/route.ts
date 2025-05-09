@@ -18,6 +18,7 @@ export async function GET() {
   return NextResponse.json({ cart }, { status: 200 });
 }
 
+// TODO - RENAME TO PRODUCT
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
   const result = CartItemSchema.safeParse(body);
