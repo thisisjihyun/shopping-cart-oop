@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-export interface CartItemProps {
+export interface ProductItemProps {
   id?: string;
   productId: string;
   productName: string;
@@ -8,7 +8,7 @@ export interface CartItemProps {
   unitPrice: number;
 }
 
-class CartItem {
+class ProductItem {
   public readonly id: string;
   public readonly productId: string;
   public readonly productName: string;
@@ -21,7 +21,7 @@ class CartItem {
     quantity,
     unitPrice,
     id,
-  }: CartItemProps) {
+  }: ProductItemProps) {
     this.id = id ?? uuidv4();
     this.productId = productId;
     this.productName = productName;
@@ -39,12 +39,12 @@ class CartItem {
     };
   }
 
-  updateQuantity(): CartItem {
-    return new CartItem({
+  updateQuantity(): ProductItem {
+    return new ProductItem({
       ...this,
       quantity: this.quantity + 1,
     });
   }
 }
 
-export default CartItem;
+export default ProductItem;

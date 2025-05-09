@@ -6,7 +6,7 @@ const dbPath = path.resolve(process.cwd(), "dev.db");
 const db = new Database(dbPath);
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS CartItem (
+  CREATE TABLE IF NOT EXISTS Product (
       id TEXT PRIMARY KEY,
       productId TEXT NOT NULL,
       productName TEXT NOT NULL,

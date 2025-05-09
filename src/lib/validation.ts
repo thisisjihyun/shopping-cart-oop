@@ -1,19 +1,19 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-const itemIdSchema = z
+const productIdSchema = z
   .string()
-  .regex(/^\d+$/, "itemId should be a numeric string");
+  .regex(/^\d+$/, "productId should be a numeric string");
 
 const bodySchema = z.object({
   quantity: z.number().int().positive(),
 });
 
-const validateItemId = (itemId: string) => {
-  const idValidation = itemIdSchema.safeParse(itemId);
+const validateProductId = (productId: string) => {
+  const idValidation = productIdSchema.safeParse(productId);
   if (!idValidation.success) {
     return NextResponse.json(
-      { message: "Invalid cart item id", issues: idValidation.error.issues },
+      { message: "Invalid product id", issues: idValidation.error.issues },
       {
         status: 400,
       }
@@ -37,11 +37,11 @@ const validateBody = (body: number) => {
 const returnNotFoundOrSuccess = (message: string, success: any) => {
   if (!success) {
     return NextResponse.json(
-      { message: `No matched item found` },
+      { message: `No matched product found` },
       { status: 404 }
     );
   }
   return NextResponse.json({ message }, { status: 200 });
 };
 
-export { validateItemId, validateBody, returnNotFoundOrSuccess };
+export { validateProductId, validateBody, returnNotFoundOrSuccess };

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 import db from "@/lib/db";
-import { addItemToCart } from "@/services/cartService";
+import { addProduct } from "@/services/productService";
 import { NextRequest, NextResponse } from "next/server";
 
 // run time validation
-const CartItemSchema = z.object({
+const ProductSchema = z.object({
   id: z.string().optional(),
   productId: z.string(),
   productName: z.string(),
@@ -14,30 +14,29 @@ const CartItemSchema = z.object({
 });
 
 export async function GET() {
-  const cart = db.prepare("SELECT * FROM CartItem").all();
-  return NextResponse.json({ cart }, { status: 200 });
+  const product = db.prepare("SELECT * FROM Product").all();
+  return NextResponse.json({ product }, { status: 200 });
 }
 
-// TODO - RENAME TO PRODUCT
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
-  const result = CartItemSchema.safeParse(body);
+  const result = ProductSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
       {
-        error: "Invalid cart item",
+        error: "Invalid product",
         issues: result.error.issues,
       },
       { status: 400 }
     );
   }
   const validatedData = result.data;
-  const updatedCart = await addItemToCart(validatedData);
-  return NextResponse.json({ items: updatedCart }, { status: 200 });
+  const updatedProduct = await addProduct(validatedData);
+  return NextResponse.json({ updatedProduct }, { status: 200 });
 }
 
 export async function DELETE(req: NextRequest, res: NextResponse) {
-  db.prepare("DELETE FROM CartItem").run();
+  db.prepare("DELETE FROM Product").run();
   return new NextResponse(null, { status: 204 });
 }

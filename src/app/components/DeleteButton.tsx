@@ -3,13 +3,13 @@
 // TODO - REFRESH WHEN IT CHANGES
 const DeleteButton = ({ productId }) => {
   const deleteAll = () => {
-    fetch("api/cart", {
+    fetch("api/products", {
       method: "DELETE",
     });
   };
 
-  const deleteItem = () => {
-    fetch(`api/cart/items/${productId}`, {
+  const deleteProduct = () => {
+    fetch(`api/products/${productId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +17,7 @@ const DeleteButton = ({ productId }) => {
     });
   };
   if (productId) {
-    return <button onClick={deleteItem}>Delete Item</button>;
+    return <button onClick={deleteProduct}>Delete</button>;
   } else {
     return <button onClick={deleteAll}>Delete</button>;
   }

@@ -13,7 +13,7 @@ const EditableRow = ({ product }) => {
   });
 
   const onSubmit = (data) => {
-    fetch(`/api/cart/items/${data.productId}`, {
+    fetch(`/api/products/${data.productId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const EditableRow = ({ product }) => {
         <label htmlFor="unitPrice">
           Unit Price <input {...register("unitPrice")} />
         </label>
-        <button type="submit" />
+        <button type="submit">Save</button>
       </form>
     </>
   );

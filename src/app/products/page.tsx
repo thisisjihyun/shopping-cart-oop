@@ -3,7 +3,7 @@ import DeleteButton from "../components/DeleteButton";
 import EditableProductList from "../components/EditableProductList";
 
 const ProductsPage = async () => {
-  const data = db.prepare("SELECT * FROM CartItem").all(); // directly accessing DB to get data
+  const data = db.prepare("SELECT * FROM Product").all(); // directly accessing DB to get data
 
   return (
     <>
