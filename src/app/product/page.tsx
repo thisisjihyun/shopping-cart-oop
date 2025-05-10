@@ -1,16 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import FormInput from "../components/FormInput";
 // TODO - Improve API side
-// TODO - Verify type
+
+interface FormData {
+  productId: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+};
+
+const defaultValues: FormData = {
+  productId: "",
+  productName: "",
+  quantity: 1,
+  unitPrice: 1,
+};
 
 const ProductPage = () => {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const { handleSubmit, reset, register } = useForm();
+  const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
+    null
+  );
+  const { handleSubmit, reset, register } = useForm<FormData>({
+    defaultValues,
+  });
 
-  const onValid = (data) => {
+  const onValid = (data: FormData) => {
     fetch("/api/products", {
       method: "POST",
       headers: {
@@ -23,19 +40,14 @@ const ProductPage = () => {
         unitPrice: data.unitPrice,
       }),
     });
-    reset({
-      productId: "",
-      productName: "",
-      quantity: 1,
-      unitPrice: "",
-    });
+    reset(defaultValues);
     setErrorMessage(null);
   };
 
-  const onInvalid = (errors) => {
+  const onInvalid = (errors: FieldErrors<FormData>) => {
     return Object.values(errors).forEach((value) => {
-      if (value.type === "required") setErrorMessage(value?.message);
-      if (value.type === "validate") setErrorMessage(value?.message);
+      if (value.type === "required") setErrorMessage(value.message);
+      if (value.type === "validate") setErrorMessage(value.message);
     });
   };
 
@@ -91,6 +103,7 @@ const ProductPage = () => {
                 "Must be a number greater than 0",
             }),
           }}
+          defaultValue={1}
         />
         <button
           type="submit"
