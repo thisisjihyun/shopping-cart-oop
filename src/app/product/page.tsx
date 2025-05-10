@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-// TODO - VALIDATION
+import FormInput from "../components/FormInput";
+// TODO - Improve API side
+// TODO - Verify type
 
 const ProductPage = () => {
-  const { register, handleSubmit } = useForm();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { handleSubmit, reset, register } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onValid = (data) => {
     fetch("/api/products", {
       method: "POST",
       headers: {
@@ -16,9 +19,23 @@ const ProductPage = () => {
       body: JSON.stringify({
         productId: data.productId,
         productName: data.productName,
-        quantity: Number(data.quantity),
-        unitPrice: Number(data.unitPrice),
+        quantity: data.quantity,
+        unitPrice: data.unitPrice,
       }),
+    });
+    reset({
+      productId: "",
+      productName: "",
+      quantity: 1,
+      unitPrice: "",
+    });
+    setErrorMessage(null);
+  };
+
+  const onInvalid = (errors) => {
+    return Object.values(errors).forEach((value) => {
+      if (value.type === "required") setErrorMessage(value?.message);
+      if (value.type === "validate") setErrorMessage(value?.message);
     });
   };
 
@@ -28,42 +45,60 @@ const ProductPage = () => {
         Add a product
       </div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onValid, onInvalid)}
         className="w-full max-w-md mx-auto p-6 rounded-lg space-y-4"
       >
-        <label htmlFor="productId">
-          Product Id{" "}
-          <input
-            {...register("productId")}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </label>
-        <label htmlFor="productName">
-          Product Name{" "}
-          <input
-            {...register("productName")}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </label>
-        <label htmlFor="quantity">
-          Quantity{" "}
-          <input
-            {...register("quantity")}
-            defaultValue={1}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </label>
-        <label htmlFor="unitPrice">
-          Unit Price{" "}
-          <input
-            {...register("unitPrice")}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </label>
+        <FormInput
+          id="productId"
+          label="Product Id"
+          inputProps={{
+            ...register("productId", {
+              required: "This field is required",
+            }),
+          }}
+        />
+        <FormInput
+          id="productName"
+          label="Product Name"
+          inputProps={{
+            ...register("productName", {
+              required: "This field is required",
+            }),
+          }}
+        />
+        <FormInput
+          id="quantity"
+          label="Quantity"
+          inputProps={{
+            ...register("quantity", {
+              valueAsNumber: true,
+              validate: (value) =>
+                (value > 0 && !isNaN(value)) ||
+                "Must be a number greater than 0",
+            }),
+          }}
+          defaultValue={1}
+        />
+        <FormInput
+          id="unitPrice"
+          label="Unit Price"
+          inputProps={{
+            ...register("unitPrice", {
+              required: "This field is required",
+              valueAsNumber: true,
+              validate: (value) =>
+                (value > 0 && !isNaN(value)) ||
+                "Must be a number greater than 0",
+            }),
+          }}
+        />
         <button
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors duration-200"
-        >Submit</button>
+        >
+          Submit
+        </button>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </form>
     </>
   );

@@ -12,6 +12,8 @@ const EditableRow = ({ product }) => {
     },
   });
 
+  // TODO - REFRESH WHEN IT CHANGES
+  // TODO - NICER UI
   const onSubmit = (data) => {
     fetch(`/api/products/${data.productId}`, {
       method: "PATCH",
