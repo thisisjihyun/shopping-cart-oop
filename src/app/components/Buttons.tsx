@@ -1,6 +1,27 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { safeFetch } from "../utils/safeFetch";
+import useProductForm from "../hooks/useProductForm";
+
+const BaseButton = ({
+  className,
+  onClick,
+  name,
+}: {
+  className: string;
+  onClick?: () => void;
+  name: string;
+}) => {
+  return (
+    <button
+      className={`px-4 py-2 font-semibold rounded transition-colors duration-200 ${className}`}
+      onClick={onClick}
+      type="submit"
+    >
+      {name}
+    </button>
+  );
+};
 
 const DeleteButton = ({ productId }: { productId: string }) => {
   const router = useRouter();
@@ -16,53 +37,38 @@ const DeleteButton = ({ productId }: { productId: string }) => {
     }
   };
 
-  if (productId) {
-    return (
-      <button
-        className="w-1/2 bg-red-500 text-white font-semibold rounded hover:bg-red-700 transition-colors duration-200"
-        onClick={() => deleteProduct(productId)}
-      >
-        Delete
-      </button>
-    );
-  } else {
-    return (
-      <button
-        className="bg-red-500 text-white font-semibold rounded hover:bg-red-700 transition-colors duration-200"
-        onClick={() => deleteProduct()}
-      >
-        Delete
-      </button>
-    );
-  }
+  return productId ? (
+    <BaseButton
+      className="w-1/2 bg-red-500 hover:bg-red-700"
+      onClick={() => deleteProduct(productId)}
+      name="Delete"
+    ></BaseButton>
+  ) : (
+    <BaseButton
+      className="bg-red-500 hover:bg-red-700"
+      onClick={() => deleteProduct()}
+      name="Delete"
+    ></BaseButton>
+  );
 };
 
-// TODO - edit error verification
-const EditButton = ({
-  productId,
-  setEditingProductId,
-}: {
-  productId: string;
-  setEditingProductId: (productId: string) => void;
-}) => {
+const EditButton = ({ productId }: { productId: string }) => {
+  const { setEditingProductId } = useProductForm();
   return (
-    <button
-      className="w-1/2 bg-green-600 text-white font-semibold rounded hover:bg-grey-700 transition-colors duration-200"
+    <BaseButton
+      className="w-1/2 bg-green-600 hover:bg-green-700"
       onClick={() => setEditingProductId(productId)}
-    >
-      Edit
-    </button>
+      name="Edit"
+    ></BaseButton>
   );
 };
 
 const SaveButton = () => {
   return (
-    <button
-      type="submit"
-      className="bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors duration-200"
-    >
-      Save
-    </button>
+    <BaseButton
+      className="bg-blue-600 hover:bg-blue-700"
+      name="Save"
+    ></BaseButton>
   );
 };
 

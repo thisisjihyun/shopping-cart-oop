@@ -16,3 +16,20 @@ export const createProduct = async (data: FormData) => {
 
   return res.json();
 };
+
+export const updateProduct = async (data: FormData) => {
+  const res = await fetch(`/api/products/${data.productId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(error || "Failed to update product");
+  }
+
+  return res.json();
+};
