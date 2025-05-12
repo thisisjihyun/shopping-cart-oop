@@ -1,25 +1,59 @@
 "use client";
+import { useRouter } from "next/navigation";
 
-// TODO - REFRESH WHEN IT CHANGES
+// TOOD - make a general try and catch
 const DeleteButton = ({ productId }) => {
-  const deleteAll = () => {
-    fetch("api/products", {
-      method: "DELETE",
-    });
+  const router = useRouter();
+
+  const deleteAll = async () => {
+    try {
+      const res = await fetch("api/products", {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete all products");
+      }
+      router.refresh();
+    } catch (error) {
+      console.log("Error deleting all products", error);
+    }
   };
 
-  const deleteProduct = () => {
-    fetch(`api/products/${productId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const deleteProduct = async () => {
+    try {
+      const res = await fetch(`api/products/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete the product");
+      }
+      router.refresh();
+    } catch (error) {
+      console.log("Error deleting product", error);
+    }
   };
+
   if (productId) {
-    return <button onClick={deleteProduct}>Delete</button>;
+    return (
+      <button
+        className="w-1/2 bg-red-500 text-white font-semibold rounded hover:bg-red-700 transition-colors duration-200"
+        onClick={deleteProduct}
+      >
+        Delete
+      </button>
+    );
   } else {
-    return <button onClick={deleteAll}>Delete</button>;
+    return (
+      <button
+        className="bg-red-500 text-white font-semibold rounded hover:bg-red-700 transition-colors duration-200"
+        onClick={deleteAll}
+      >
+        Delete
+      </button>
+    );
   }
 };
 

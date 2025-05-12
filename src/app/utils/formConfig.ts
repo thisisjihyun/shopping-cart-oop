@@ -1,4 +1,4 @@
-import { FormData } from "./type";
+import { FormData } from "../product/type";
 
 export const defaultValues: FormData = {
   productId: "",

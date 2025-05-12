@@ -6,7 +6,7 @@ export interface FormData {
 }
 
 export interface FromInputProps {
-  label: string;
+  label?: string;
   id: string;
   inputProps: React.InputHTMLAttributes<HTMLInputElement>;
   defaultValue?: string | number;

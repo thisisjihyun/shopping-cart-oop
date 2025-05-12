@@ -6,10 +6,9 @@ import { FormData } from "./type";
 
 import FormInput from "../components/FormInput";
 import { createProduct } from "./service";
-import { defaultValues, formFields } from "./formConfig";
+import { defaultValues, formFields } from "../utils/formConfig";
 
 // TODO - Separate form (hooks + compoennts)
-// file structure
 const ProductPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
     null

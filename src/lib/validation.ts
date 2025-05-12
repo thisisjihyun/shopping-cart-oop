@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const productIdSchema = z
   .string()
-  .regex(/^\d+$/, "productId should be a numeric string");
+  .regex(/^[a-zA-Z0-9]+$/, "productId should only contain letters and numbers");
 
 const bodySchema = z.object({
   quantity: z.number().int().positive(),

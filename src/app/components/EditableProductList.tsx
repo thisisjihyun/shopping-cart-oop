@@ -11,7 +11,7 @@ const EditableProductList = ({ product }) => {
   return (
     <>
       {editingProductId ? (
-        <EditableRow product={product} editingProductId={editingProductId} />
+        <EditableRow product={product} setEditingProductId={setEditingProductId} />
       ) : (
         <div key={product.productId} className="grid grid-cols-6 p-2 border-b">
           <div>{product.productId}</div>
