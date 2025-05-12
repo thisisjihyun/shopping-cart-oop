@@ -8,8 +8,8 @@ import FormInput from "../components/FormInput";
 import { createProduct } from "./service";
 import { defaultValues, formFields } from "./formConfig";
 
-// TODO - Improve API side
-
+// TODO - Separate form (hooks + compoennts)
+// file structure
 const ProductPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
     null

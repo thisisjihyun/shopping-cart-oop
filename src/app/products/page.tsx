@@ -1,5 +1,5 @@
 import db from "@/lib/db";
-import DeleteButton from "../components/DeleteButton";
+import DeleteButton from "../components/buttons/DeleteButton";
 import EditableProductList from "../components/EditableProductList";
 
 const ProductsPage = async () => {

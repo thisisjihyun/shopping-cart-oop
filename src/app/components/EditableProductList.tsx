@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import DeleteButton from "../components/DeleteButton";
-import EditButton from "../components/EditButton";
+import DeleteButton from "./buttons/DeleteButton";
+import EditButton from "./buttons/EditButton";
 import EditableRow from "../components/EditableRow";
 
 const EditableProductList = ({ product }) => {
