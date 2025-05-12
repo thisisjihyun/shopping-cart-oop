@@ -1,11 +1,21 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { formFields } from "../utils/formConfig";
-import FormInput from "./FormInput";
 import { useRouter } from "next/navigation";
 
-const EditableRow = ({ product, setEditingProductId }) => {
+import FormInput from "./FormInput";
+import { SaveButton } from "./Buttons";
+import { safeFetch } from "../utils/safeFetch";
+import { formFields } from "../utils/formConfig";
+import { FormData } from "../../app/product/type";
+
+const EditableRow = ({
+  product,
+  setEditingProductId,
+}: {
+  product: FormData;
+  setEditingProductId: (productId: string | null) => void;
+}) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -17,27 +27,22 @@ const EditableRow = ({ product, setEditingProductId }) => {
   });
 
   // TODO - NICER UI
-  const onSubmit = async (data) => {
-    try {
-      const res = await fetch(`/api/products/${data.productId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: data.productId,
-          productName: data.productName,
-          quantity: Number(data.quantity),
-          unitPrice: Number(data.unitPrice),
-        }),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to update the product");
-      }
+  const onSubmit = async (formData: FormData) => {
+    const data = await safeFetch(`/api/products/${formData.productId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: formData.productId,
+        productName: formData.productName,
+        quantity: Number(formData.quantity),
+        unitPrice: Number(formData.unitPrice),
+      }),
+    });
+    if (data) {
       setEditingProductId(null);
       router.refresh();
-    } catch (error) {
-      console.log("Error updating product", error);
     }
   };
 
@@ -60,13 +65,7 @@ const EditableRow = ({ product, setEditingProductId }) => {
           }}
         />
       ))}
-
-      <button
-        type="submit"
-        className="bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors duration-200"
-      >
-        Save
-      </button>
+      <SaveButton />
     </form>
   );
 };

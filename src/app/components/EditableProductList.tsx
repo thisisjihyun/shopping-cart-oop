@@ -2,16 +2,20 @@
 
 import { useState } from "react";
 
-import DeleteButton from "./buttons/DeleteButton";
-import EditButton from "./buttons/EditButton";
+import { DeleteButton } from "./Buttons";
+import { EditButton } from "./Buttons";
 import EditableRow from "../components/EditableRow";
+import { FormData } from "../../app/product/type";
 
-const EditableProductList = ({ product }) => {
-  const [editingProductId, setEditingProductId] = useState(null);
+const EditableProductList = ({ product }: {product: FormData}) => {
+  const [editingProductId, setEditingProductId] = useState<string | null>(null);
   return (
     <>
       {editingProductId ? (
-        <EditableRow product={product} setEditingProductId={setEditingProductId} />
+        <EditableRow
+          product={product}
+          setEditingProductId={setEditingProductId}
+        />
       ) : (
         <div key={product.productId} className="grid grid-cols-6 p-2 border-b">
           <div>{product.productId}</div>

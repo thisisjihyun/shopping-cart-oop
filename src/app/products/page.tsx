@@ -1,9 +1,9 @@
 import db from "@/lib/db";
-import DeleteButton from "../components/buttons/DeleteButton";
+import { DeleteButton } from "../components/Buttons";
 import EditableProductList from "../components/EditableProductList";
 
 const ProductsPage = async () => {
-  const data = db.prepare("SELECT * FROM Product").all(); // directly accessing DB to get data
+  const data = db.prepare("SELECT * FROM Product").all();
 
   return (
     <>
