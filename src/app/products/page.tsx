@@ -1,6 +1,6 @@
 import db from "@/lib/db";
-import { DeleteButton } from "../components/Buttons";
-import EditableProductList from "../components/EditableProductList";
+import { DeleteButton } from "@/app/components/Buttons";
+import List from "@/app/components/List";
 
 const ProductsPage = async () => {
   const data = db.prepare("SELECT * FROM Product").all();
@@ -14,7 +14,7 @@ const ProductsPage = async () => {
         <div>Price</div>
       </div>
       {data.map((product, index) => (
-        <EditableProductList product={product} key={index} />
+        <List product={product} key={index} />
       ))}
       <DeleteButton />
     </>

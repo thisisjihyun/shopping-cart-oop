@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-import EditablRow from "./Form";
-import { DeleteButton, EditButton } from "./Buttons";
-import { FormData } from "../../app/product/type";
-import { fetchProductById } from "../product/service";
+import EditablRow from "@/app/components/Form";
+import { DeleteButton, EditButton } from "@/app/components/Buttons";
+import { FormData } from "@/app/product/type";
+import { fetchProductById } from "@/app/product/service";
 
-const EditableProductList = ({ product }: { product: FormData }) => {
+const List = ({ product }: { product: FormData }) => {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [currentProduct, setCurrentProduct] = useState<FormData>(product);
 
@@ -50,4 +50,4 @@ const EditableProductList = ({ product }: { product: FormData }) => {
   );
 };
 
-export default EditableProductList;
+export default List;

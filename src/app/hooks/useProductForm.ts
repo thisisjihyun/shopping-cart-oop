@@ -1,30 +1,33 @@
 "use client";
 
 import { FieldErrors, useForm } from "react-hook-form";
-import { useState } from "react";
-import { createProduct, updateProduct } from "../product/service";
-import { defaultValues } from "../utils/formConfig";
+import { createProduct, updateProduct } from "@/app/product/service";
+import { defaultValues, FormType } from "@/app/utils/formConfig";
+import { FormData } from "@/app/product/type";
+
+interface UseProductFormProps {
+  type: FormType;
+  product?: any;
+  handleEditComplete?: () => void;
+  setErrorMessage?: (message: string | null | undefined) => void;
+}
 
 const useProductForm = ({
   type,
   product,
   handleEditComplete,
   setErrorMessage,
-}: {
-  type?: string;
-  product?: any;
-  handleEditComplete?: () => void;
-  setErrorMessage?: (message: string | null) => void;
-} = {}) => {
+}: UseProductFormProps) => {
   const value = product || defaultValues;
   const { register, handleSubmit, reset } = useForm({ defaultValues: value });
+  
   const onValid = async (data: FormData) => {
-    if (type === "add") {
+    if (type === FormType.ADD) {
       await createProduct(data);
       reset(defaultValues);
       setErrorMessage?.(null);
     }
-    if (type === "edit") {
+    if (type === FormType.EDIT) {
       await updateProduct(data);
       handleEditComplete?.();
     }

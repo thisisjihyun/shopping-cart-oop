@@ -1,12 +1,20 @@
 "use client";
 
-import FormInput from "../components/FormInput";
-import { formFields } from "../utils/formConfig";
-import useProductForm from "../hooks/useProductForm";
-import { SaveButton, SubmitButton } from "../components/Buttons";
 import { useState } from "react";
+import FormInput from "@/app/components/FormInput";
+import { formFields, FormType } from "@/app/utils/formConfig";
+import useProductForm from "@/app/hooks/useProductForm";
+import { SaveButton, SubmitButton } from "@/app/components/Buttons";
+import { FormData } from "@/app/product/type";
 
-const Form = ({ className, type, product, handleEditComplete }) => {
+interface FormProps {
+  className: string;
+  type: FormType;
+  product: FormData;
+  handleEditComplete: () => void;
+}
+
+const Form = ({ className, type, product, handleEditComplete }: FormProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
     null
   );

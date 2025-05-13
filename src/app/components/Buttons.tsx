@@ -1,16 +1,19 @@
 "use client";
+
 import { useRouter } from "next/navigation";
-import { deleteProduct } from "../product/service";
+import { deleteProduct } from "@/app/product/service";
+
+interface BaseButtonProps {
+  className: string;
+  onClick?: () => void;
+  name: string;
+}
 
 const BaseButton = ({
   className,
   onClick,
   name,
-}: {
-  className: string;
-  onClick?: () => void;
-  name: string;
-}) => {
+}: BaseButtonProps) => {
   return (
     <button
       className={`px-4 py-2 font-semibold rounded transition-colors duration-200 ${className}`}
@@ -22,7 +25,7 @@ const BaseButton = ({
   );
 };
 
-const DeleteButton = ({ productId }: { productId: string }) => {
+const DeleteButton = ({ productId }: { productId?: string }) => {
   const router = useRouter();
 
   const handleDelete = async () => {

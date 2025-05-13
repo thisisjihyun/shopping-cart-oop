@@ -1,4 +1,4 @@
-import { FromInputProps } from "../product/type";
+import { FromInputProps } from "@/app/product/type";
 
 const FormInput = ({ label, id, inputProps, defaultValue }: FromInputProps) => {
   return (

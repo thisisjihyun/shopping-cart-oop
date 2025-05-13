@@ -1,9 +1,9 @@
+import { NextRequest, NextResponse } from "next/server";
 import {
   deleteProduct,
   getProductById,
   updateProductQuantity,
 } from "@/services/productService";
-import { NextRequest, NextResponse } from "next/server";
 import {
   validateProductId,
   validateBody,

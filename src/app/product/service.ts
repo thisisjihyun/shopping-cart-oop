@@ -1,5 +1,5 @@
-import { safeFetch } from "../utils/safeFetch";
-import { FormData } from "./type";
+import { safeFetch } from "@/app/utils/safeFetch";
+import { FormData } from "@/app/product/type";
 
 export const createProduct = async (formData: FormData) => {
   return await safeFetch("/api/products", {
