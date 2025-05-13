@@ -2,6 +2,12 @@ import Product from "@/domain/entities/Product";
 import ProductItem, { ProductItemProps } from "@/domain/entities/ProductItem";
 import db from "@/lib/db";
 
+const getProductById = async (productId: string) => {
+  const getProduct = db.prepare("SELECT * FROM Product WHERE productId = ?");
+  const result = getProduct.get(productId);
+  return result;
+};
+
 const addProduct = async (product: ProductItemProps) => {
   const existingProduct = db
     .prepare("SELECT * FROM Product")
@@ -46,7 +52,6 @@ const updateProductQuantity = async (itemId: string, quantity: number) => {
     "UPDATE Product SET quantity = ? WHERE productId = ?"
   );
   const result = updateQuantity.run(quantity, itemId);
-  console.log("result", result);
   return result.changes > 0;
 };
 
@@ -56,4 +61,4 @@ const deleteProduct = async (itemId: string): Promise<boolean> => {
   return result.changes > 0;
 };
 
-export { addProduct, deleteProduct, updateProductQuantity };
+export { getProductById, addProduct, deleteProduct, updateProductQuantity };

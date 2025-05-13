@@ -1,35 +1,40 @@
+import { safeFetch } from "../utils/safeFetch";
 import { FormData } from "./type";
 
-export const createProduct = async (data: FormData) => {
-  const res = await fetch("/api/products", {
+export const createProduct = async (formData: FormData) => {
+  return await safeFetch("/api/products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(formData),
   });
-
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error || "Failed to create product");
-  }
-
-  return res.json();
 };
 
-export const updateProduct = async (data: FormData) => {
-  const res = await fetch(`/api/products/${data.productId}`, {
-    method: "PUT",
+export const updateProduct = async (formData: FormData) => {
+  return await safeFetch(`/api/products/${formData.productId}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      productId: formData.productId,
+      productName: formData.productName,
+      quantity: Number(formData.quantity),
+      unitPrice: Number(formData.unitPrice),
+    }),
   });
+};
 
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(error || "Failed to update product");
-  }
+export const deleteProduct = async (productId?: string | null) => {
+  const endpoint = productId ? `/api/products/${productId}` : "/api/products";
+  return await safeFetch(endpoint, {
+    method: "DELETE",
+  });
+};
 
-  return res.json();
+export const fetchProductById = async (productId: string) => {
+  return await safeFetch(`/api/products/${productId}`, {
+    method: "GET",
+  });
 };

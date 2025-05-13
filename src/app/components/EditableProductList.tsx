@@ -2,32 +2,49 @@
 
 import { useState } from "react";
 
-import { DeleteButton } from "./Buttons";
-import { EditButton } from "./Buttons";
-import EditableRow from "../components/EditableRow";
+import EditablRow from "./Form";
+import { DeleteButton, EditButton } from "./Buttons";
 import { FormData } from "../../app/product/type";
+import { fetchProductById } from "../product/service";
 
-const EditableProductList = ({ product }: {product: FormData}) => {
+const EditableProductList = ({ product }: { product: FormData }) => {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
+  const [currentProduct, setCurrentProduct] = useState<FormData>(product);
+
+  const handleEditComplete = async () => {
+    const updatedProduct = await fetchProductById(product.productId);
+    setCurrentProduct(updatedProduct.data);
+    setEditingProductId(null);
+  };
+
+  const Row = (
+    <div
+      key={currentProduct.productId}
+      className="grid grid-cols-6 p-2 border-b"
+    >
+      <div>{currentProduct.productId}</div>
+      <div>{currentProduct.productName}</div>
+      <div>{currentProduct.quantity}</div>
+      <div>{currentProduct.unitPrice}</div>
+      <EditButton
+        productId={currentProduct.productId}
+        setEditingProductId={setEditingProductId}
+      />
+      <DeleteButton productId={currentProduct.productId} />
+    </div>
+  );
+
   return (
     <>
       {editingProductId ? (
-        <EditableRow
+        <EditablRow
+          className="flex"
+          type="edit"
           product={product}
-          setEditingProductId={setEditingProductId}
+          handleEditComplete={handleEditComplete}
         />
       ) : (
-        <div key={product.productId} className="grid grid-cols-6 p-2 border-b">
-          <div>{product.productId}</div>
-          <div>{product.productName}</div>
-          <div>{product.quantity}</div>
-          <div>{product.unitPrice}</div>
-          <EditButton
-            productId={product.productId}
-            setEditingProductId={setEditingProductId}
-          />
-          <DeleteButton productId={product.productId} />
-        </div>
+        Row
       )}
     </>
   );

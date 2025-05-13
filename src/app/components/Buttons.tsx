@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { safeFetch } from "../utils/safeFetch";
-import useProductForm from "../hooks/useProductForm";
+import { deleteProduct } from "../product/service";
 
 const BaseButton = ({
   className,
@@ -26,34 +25,33 @@ const BaseButton = ({
 const DeleteButton = ({ productId }: { productId: string }) => {
   const router = useRouter();
 
-  const deleteProduct = async (productId?: string | null) => {
-    const endpoint = productId ? `api/products/${productId}` : "api/products";
-    const data = await safeFetch(endpoint, {
-      method: "DELETE",
-    });
-
-    if (data) {
-      router.refresh();
-    }
+  const handleDelete = async () => {
+    const data = await deleteProduct(productId);
+    if (data) router.refresh();
   };
 
   return productId ? (
     <BaseButton
       className="w-1/2 bg-red-500 hover:bg-red-700"
-      onClick={() => deleteProduct(productId)}
+      onClick={handleDelete}
       name="Delete"
     ></BaseButton>
   ) : (
     <BaseButton
       className="bg-red-500 hover:bg-red-700"
-      onClick={() => deleteProduct()}
+      onClick={handleDelete}
       name="Delete"
     ></BaseButton>
   );
 };
 
-const EditButton = ({ productId }: { productId: string }) => {
-  const { setEditingProductId } = useProductForm();
+const EditButton = ({
+  productId,
+  setEditingProductId,
+}: {
+  productId: string;
+  setEditingProductId: (productId: string) => void;
+}) => {
   return (
     <BaseButton
       className="w-1/2 bg-green-600 hover:bg-green-700"
@@ -72,4 +70,13 @@ const SaveButton = () => {
   );
 };
 
-export { DeleteButton, EditButton, SaveButton };
+const SubmitButton = () => {
+  return (
+    <BaseButton
+      className="bg-blue-600 hover:bg-blue-700"
+      name="Submit"
+    ></BaseButton>
+  );
+};
+
+export { DeleteButton, EditButton, SaveButton, SubmitButton };
