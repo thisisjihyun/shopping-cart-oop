@@ -15,15 +15,13 @@ interface FormProps {
 }
 
 const Form = ({ className, type, product, handleEditComplete }: FormProps) => {
-  const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
-    null
+  const { handleSubmit, onInvalid, onValid, register, errors } = useProductForm(
+    {
+      type,
+      product,
+      handleEditComplete,
+    }
   );
-  const { handleSubmit, onInvalid, onValid, register } = useProductForm({
-    type,
-    product,
-    handleEditComplete,
-    setErrorMessage,
-  });
 
   return (
     <>
@@ -48,7 +46,11 @@ const Form = ({ className, type, product, handleEditComplete }: FormProps) => {
         ))}
         {type === "edit" ? <SaveButton /> : <SubmitButton />}
       </form>
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      {formFields.map((field, index) => (
+        <div key={index} className="text-red-500">
+          {errors[field.id]?.message}
+        </div>
+      ))}
     </>
   );
 };

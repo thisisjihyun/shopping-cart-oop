@@ -1,4 +1,5 @@
 import Form from "@/app/components/Form";
+import { FormType } from "@/app/utils/formConfig";
 
 const ProductPage = () => {
   return (
@@ -8,7 +9,7 @@ const ProductPage = () => {
       </div>
       <Form
         className="w-full max-w-md mx-auto p-6 rounded-lg space-y-4"
-        type="add"
+        type={FormType.ADD}
       />
     </>
   );

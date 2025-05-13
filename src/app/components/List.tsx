@@ -6,6 +6,7 @@ import EditablRow from "@/app/components/Form";
 import { DeleteButton, EditButton } from "@/app/components/Buttons";
 import { FormData } from "@/app/product/type";
 import { fetchProductById } from "@/app/product/service";
+import { FormType } from "@/app/utils/formConfig";
 
 const List = ({ product }: { product: FormData }) => {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
@@ -39,7 +40,7 @@ const List = ({ product }: { product: FormData }) => {
       {editingProductId ? (
         <EditablRow
           className="flex"
-          type="edit"
+          type={FormType.EDIT}
           product={product}
           handleEditComplete={handleEditComplete}
         />

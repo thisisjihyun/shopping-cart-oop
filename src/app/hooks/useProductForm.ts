@@ -19,8 +19,13 @@ const useProductForm = ({
   setErrorMessage,
 }: UseProductFormProps) => {
   const value = product || defaultValues;
-  const { register, handleSubmit, reset } = useForm({ defaultValues: value });
-  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: value });
+
   const onValid = async (data: FormData) => {
     if (type === FormType.ADD) {
       await createProduct(data);
@@ -34,10 +39,10 @@ const useProductForm = ({
   };
 
   const onInvalid = (errors: FieldErrors<FormData>) => {
-    return Object.values(errors).forEach((value) => {
-      if (value.type === "required") setErrorMessage?.(value.message);
-      if (value.type === "validate") setErrorMessage?.(value.message);
-    });
+  //   return Object.values(errors).forEach((value) => {
+  //     if (value.type === "required") setErrorMessage?.(value.message);
+  //     if (value.type === "validate") setErrorMessage?.(value.message);
+  //   });
   };
 
   return {
@@ -46,6 +51,7 @@ const useProductForm = ({
     onInvalid,
     handleSubmit,
     register,
+    errors
   };
 };
 
