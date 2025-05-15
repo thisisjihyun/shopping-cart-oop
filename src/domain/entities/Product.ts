@@ -1,9 +1,5 @@
 import ProductItem from "./ProductItem";
 
-interface ProductProps {
-  items?: ProductItem[];
-}
-
 class Product {
   public items?: ProductItem[];
 
