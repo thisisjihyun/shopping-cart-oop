@@ -9,11 +9,7 @@ interface BaseButtonProps {
   name: string;
 }
 
-const BaseButton = ({
-  className,
-  onClick,
-  name,
-}: BaseButtonProps) => {
+const BaseButton = ({ className, onClick, name }: BaseButtonProps) => {
   return (
     <button
       className={`px-4 py-2 font-semibold rounded transition-colors duration-200 ${className}`}
@@ -82,4 +78,27 @@ const SubmitButton = () => {
   );
 };
 
-export { DeleteButton, EditButton, SaveButton, SubmitButton };
+const AddToCartButton = ({ product }: { product: any }) => {
+  const handleAddToCart = () => {
+    fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: product.id,
+        productId: product.productId,
+        quantity: 1,
+        userId: 1,
+      }),
+    });
+  };
+  return (
+    <BaseButton
+      className="bg-blue-600 hover:bg-blue-700"
+      name="Add to Cart"
+      onClick={handleAddToCart}
+    ></BaseButton>
+  );
+};
+export { DeleteButton, EditButton, SaveButton, SubmitButton, AddToCartButton };

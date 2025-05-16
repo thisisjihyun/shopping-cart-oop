@@ -33,6 +33,7 @@ export const deleteProduct = async (productId?: string | null) => {
   });
 };
 
+// TODO - POST to return the updated data
 export const fetchProductById = async (productId: string) => {
   return await safeFetch(`/api/products/${productId}`, {
     method: "GET",
