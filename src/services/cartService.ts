@@ -4,10 +4,10 @@ import { getOrCreateCart } from "./cartHelpers";
 import { v4 as uuidv4 } from "uuid";
 
 // TODO - When a product is deleted on admin side, it should be inavailable in Cart
-const newCartItemId = uuidv4();
-
 export const addItemToCart = async (item: any) => {
   const cart = getOrCreateCart(item.userId);
+
+  const newCartItemId = uuidv4();
   const newCartItem = new CartItem(
     newCartItemId,
     item.productId,

@@ -9,7 +9,7 @@ class CartItem {
   toRow() {
     return [this.id, this.productId, this.cartId, this.quantity];
   }
-  
+
   increment() {
     this.quantity++;
   }

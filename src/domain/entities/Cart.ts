@@ -11,7 +11,7 @@ class Cart {
   addItem(newItem: CartItem) {
     const existingItem = this.items.find(
       (item) => item.productId === newItem.productId
-  );
+    );
     if (existingItem) {
       existingItem.increment();
     } else {

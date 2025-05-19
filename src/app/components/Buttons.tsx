@@ -86,8 +86,7 @@ const AddToCartButton = ({ product }: { product: any }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: product.id,
-        productId: product.productId,
+        productId: product.id,
         quantity: 1,
         userId: 1,
       }),

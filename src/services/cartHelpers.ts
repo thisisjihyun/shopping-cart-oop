@@ -16,17 +16,16 @@ export const getOrCreateCart = (userId: string) => {
       newCartId,
       userId
     );
-    cart = new Cart(newCartId, userId, []);
-  } else {
-    const cartItems = db
-      .prepare(`SELECT * FROM CartItem WHERE cartId = ?`)
-      .all(userCart.id);
-    const items = cartItems.map((item) => {
-      return new CartItem(item.id, item.productId, userCart.id, item.quantity);
-    });
-    cart = new Cart(userCart.id, userCart.userId, items);
+    return new Cart(newCartId, userId, []);
   }
-  return cart;
+
+  const cartItems = db
+    .prepare(`SELECT * FROM CartItem WHERE cartId = ?`)
+    .all(userCart.id);
+
+  const items = cartItems?.map((item) => {
+    return new CartItem(item.id, item.productId, userCart.id, item.quantity);
+  });
+
+  return new Cart(userCart.id, userCart.userId, items);
 };
-
-

@@ -37,7 +37,8 @@ db.exec(`
       productId TEXT REFERENCES Product(id),
       cartId TEXT NOT NULL REFERENCES Cart(id),
       quantity INTEGER NOT NULL,
-      createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+      createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE (cartId, productId)
   )
 `);
 
