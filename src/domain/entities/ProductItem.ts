@@ -5,6 +5,7 @@ export interface ProductItemProps {
   productName: string;
   quantity: number;
   unitPrice: number;
+  description: string;
 }
 
 class ProductItem {
@@ -12,17 +13,20 @@ class ProductItem {
   public readonly productName: string;
   public readonly quantity: number;
   public readonly unitPrice: number;
+  public readonly description: string;
 
   constructor({
     productName,
     quantity,
     unitPrice,
     id,
+    description,
   }: ProductItemProps) {
     this.id = id ?? uuidv4();
     this.productName = productName;
     this.quantity = quantity;
     this.unitPrice = unitPrice;
+    this.description = description;
   }
 
   toObject() {
@@ -31,6 +35,7 @@ class ProductItem {
       productName: this.productName,
       quantity: this.quantity,
       unitPrice: this.unitPrice,
+      description: this.description,
     };
   }
 

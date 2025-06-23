@@ -7,6 +7,7 @@ const AdminProductList = ({ data }) => {
         <div>Name</div>
         <div>Quantity</div>
         <div>Price (€)</div>
+        <div>Description</div>
       </div>
       {data.map((product) => (
         <AdminList product={product} key={product.id} />

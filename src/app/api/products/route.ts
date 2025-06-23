@@ -8,6 +8,7 @@ const ProductSchema = z.object({
   productName: z.string(),
   quantity: z.number(),
   unitPrice: z.number(),
+  description: z.string(),
 });
 
 export async function GET() {

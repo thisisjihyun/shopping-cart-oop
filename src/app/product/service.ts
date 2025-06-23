@@ -22,6 +22,7 @@ export const updateProduct = async (formData: FormData) => {
       productName: formData.productName,
       quantity: Number(formData.quantity),
       unitPrice: Number(formData.unitPrice),
+      description: formData.description,
     }),
   });
 };

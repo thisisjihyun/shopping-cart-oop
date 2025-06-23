@@ -26,6 +26,7 @@ const List = ({ product }: { product: FormData }) => {
       <div>{currentProduct.productName}</div>
       {<div>{currentProduct.quantity}</div>}
       <div>{currentProduct.unitPrice}</div>
+      <div>{currentProduct.description}</div>
 
       <AddToCartButton product={currentProduct} />
       <DeleteButton id={currentProduct.id} />

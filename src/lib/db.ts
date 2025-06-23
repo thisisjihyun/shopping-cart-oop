@@ -22,6 +22,7 @@ db.exec(`
       productName TEXT NOT NULL,
       quantity INTEGER NOT NULL,
       unitPrice REAL NOT NULL,
+      description TEXT NOT NULL,
       createdAt TEXT DEFAULT CURRENT_TIMESTAMP
   );
 

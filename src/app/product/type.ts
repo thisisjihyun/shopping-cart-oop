@@ -3,6 +3,7 @@ export interface FormData {
   productName: string;
   quantity: number;
   unitPrice: number;
+  description: string;
 }
 
 export interface FromInputProps {

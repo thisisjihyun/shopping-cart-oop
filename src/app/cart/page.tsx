@@ -17,6 +17,7 @@ const Cart = () => {
           <div>name: {item.productName}</div>
           <div>quantity: {item.quantity}</div>
           <div>unit price: {item.unitPrice}</div>
+          <div>description: {item.description}</div>
         </div>
       ))}
     </div>

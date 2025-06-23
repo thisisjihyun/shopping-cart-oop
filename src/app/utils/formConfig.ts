@@ -9,10 +9,11 @@ export const defaultValues: FormData = {
   productName: "",
   quantity: 1,
   unitPrice: 1,
+  description: "",
 };
 
 export const formFields: Array<{
-  id: "productName" | "quantity" | "unitPrice";
+  id: "productName" | "quantity" | "unitPrice" | "description";
   label: string;
   type: string;
   defaultValue: string | number;
@@ -34,5 +35,11 @@ export const formFields: Array<{
     label: "Unit Price (€)",
     type: "number",
     defaultValue: 1,
+  },
+  {
+    id: "description",
+    label: "Description",
+    type: "text",
+    defaultValue: "",
   },
 ];

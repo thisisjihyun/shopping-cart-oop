@@ -37,8 +37,8 @@ const addProduct = async (product: ProductItemProps) => {
         update.run(item.quantity, item.id);
       } else {
         const insert = db.prepare(`
-          INSERT INTO Product (id,  productName, quantity, unitPrice)
-          VALUES (@id, @productName, @quantity, @unitPrice)
+          INSERT INTO Product (id,  productName, quantity, unitPrice, description)
+          VALUES (@id, @productName, @quantity, @unitPrice, @description)
         `);
         insert.run(item);
       }
@@ -49,12 +49,13 @@ const addProduct = async (product: ProductItemProps) => {
 
 const updateProduct = async (id: string, body: number) => {
   const updateQuantity = db.prepare(
-    "UPDATE Product SET productName = ?, quantity = ?, unitPrice= ? WHERE id = ?"
+    "UPDATE Product SET productName = ?, quantity = ?, unitPrice = ?, description = ? WHERE id = ?"
   );
   const result = updateQuantity.run(
     body.productName,
     body.quantity,
     body.unitPrice,
+    body.description,
     id
   );
   return result.changes > 0;
