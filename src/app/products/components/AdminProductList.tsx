@@ -8,8 +8,8 @@ const AdminProductList = ({ data }) => {
         <div>Quantity</div>
         <div>Price (€)</div>
       </div>
-      {data.map((product, index) => (
-        <AdminList product={product} key={index} />
+      {data.map((product) => (
+        <AdminList product={product} key={product.id} />
       ))}
     </>
   );

@@ -18,7 +18,7 @@ const AdminList = ({ product }: { product: FormData }) => {
   };
 
   const Row = (
-    <div key={currentProduct.id} className="grid grid-cols-6 p-2 border-b">
+    <div className="grid grid-cols-6 p-2 border-b">
       <div>{currentProduct.productName}</div>
       {<div>{currentProduct.quantity}</div>}
       <div>{currentProduct.unitPrice}</div>

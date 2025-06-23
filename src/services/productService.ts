@@ -56,7 +56,7 @@ const updateProductQuantity = async (id: string, quantity: number) => {
 };
 
 const deleteProduct = async (id: string): Promise<boolean> => {
-  const deleteOrders = db.prepare("DELETE FROM CartItem WHERE id = ?");
+  const deleteOrders = db.prepare("DELETE FROM CartItem WHERE productId = ?");
   const deleteProduct = db.prepare("DELETE FROM Product WHERE id = ?");
   deleteOrders.run(id);
 
