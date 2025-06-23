@@ -19,7 +19,6 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS Product (
       id TEXT PRIMARY KEY,
-      productId TEXT NOT NULL,
       productName TEXT NOT NULL,
       quantity INTEGER NOT NULL,
       unitPrice REAL NOT NULL,

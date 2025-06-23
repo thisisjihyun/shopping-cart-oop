@@ -1,5 +1,5 @@
 export interface FormData {
-  productId: string;
+  id?: string;
   productName: string;
   quantity: number;
   unitPrice: number;

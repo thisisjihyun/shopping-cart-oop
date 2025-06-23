@@ -9,8 +9,21 @@ export async function POST(request: Request) {
   });
 }
 
+// Question - if cartId is always same, why do we need?
+// is it best to leave here? or move the db code somewhere else?
 export async function GET(request: Request) {
-  const cart = db.prepare(`SELECT * FROM CartItem`).all();
+  const cart = db
+    .prepare(
+      `SELECT 
+  CartItem.quantity,
+  CartItem.cartId,
+  Product.id as productId,
+  Product.productName,
+  Product.unitPrice
+  FROM CartItem
+  JOIN Product ON CartItem.productId = Product.id`
+    )
+    .all();
   return new Response(JSON.stringify(cart), {
     status: 200,
   });

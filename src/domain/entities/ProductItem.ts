@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export interface ProductItemProps {
   id?: string;
-  productId: string;
   productName: string;
   quantity: number;
   unitPrice: number;
@@ -10,20 +9,17 @@ export interface ProductItemProps {
 
 class ProductItem {
   public readonly id: string;
-  public readonly productId: string;
   public readonly productName: string;
   public readonly quantity: number;
   public readonly unitPrice: number;
 
   constructor({
-    productId,
     productName,
     quantity,
     unitPrice,
     id,
   }: ProductItemProps) {
     this.id = id ?? uuidv4();
-    this.productId = productId;
     this.productName = productName;
     this.quantity = quantity;
     this.unitPrice = unitPrice;
@@ -32,7 +28,6 @@ class ProductItem {
   toObject() {
     return {
       id: this.id,
-      productId: this.productId,
       productName: this.productName,
       quantity: this.quantity,
       unitPrice: this.unitPrice,

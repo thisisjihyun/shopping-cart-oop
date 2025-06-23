@@ -1,37 +1,25 @@
-import db from "@/lib/db";
+"use client";
+
+import { useEffect, useState } from "react";
 
 const Cart = () => {
-  // TODO - UNDERSTAND
-  const cart = db
-    .prepare(
-      `SELECT 
-        CartItem.quantity,
-        Product.productName,
-        Product.unitPrice
-        FROM CartItem
-        JOIN Product ON CartItem.productId = Product.id
-        JOIN Cart ON CartItem.cartId = Cart.id
-        WHERE CartItem.cartId = ?`
-    )
-    .all("06788eb8-264a-4684-8bb6-0fd67390ea05");
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/cart")
+      .then((res) => res.json())
+      .then((data) => setCart(data));
+  }, []);
   return (
-    <>
-      <div>
-        {/* TODO - reusable display  */}
-        {cart?.map((x) => {
-          return (
-            <div className="flex">
-              <div>name : {x.productName}</div>
-              <div>quantity : {x.quantity}</div>
-              <div>unit price : {x.unitPrice}</div>
-            </div>
-          );
-        })}
-      </div>
-      {/* TODO - Delete each item */}
-      {/* TODO - Delete all the items */}
-      {/* TODO - Total price  */}
-    </>
+    <div>
+      {cart?.map((item, i) => (
+        <div key={i} className="flex">
+          <div>name: {item.productName}</div>
+          <div>quantity: {item.quantity}</div>
+          <div>unit price: {item.unitPrice}</div>
+        </div>
+      ))}
+    </div>
   );
 };
 

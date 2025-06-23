@@ -10,7 +10,7 @@ export const addItemToCart = async (item: any) => {
   const newCartItemId = uuidv4();
   const newCartItem = new CartItem(
     newCartItemId,
-    item.productId,
+    item.id,
     cart.id,
     item.quantity
   );
@@ -20,11 +20,11 @@ export const addItemToCart = async (item: any) => {
   if (!existingItem) {
     throw new Error("No matched item");
   }
-
+  
   const existingItemInDb = db
-    .prepare(`SELECT * FROM CartItem WHERE cartId = ? AND productId = ?`)
-    .get(existingItem.cartId, existingItem.productId);
-
+  .prepare(`SELECT * FROM CartItem WHERE cartId = ? AND productId = ?`)
+  .get(existingItem.cartId, existingItem.productId);
+  
   if (existingItemInDb) {
     db.prepare(
       `UPDATE CartItem SET quantity = ? WHERE cartId = ? AND productId = ?`

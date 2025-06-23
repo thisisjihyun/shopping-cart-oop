@@ -3,14 +3,14 @@ import { z } from "zod";
 
 const productIdSchema = z
   .string()
-  .regex(/^[a-zA-Z0-9]+$/, "productId should only contain letters and numbers");
+  .regex(/^[a-zA-Z0-9-]+$/, "Id should only contain letters, numbers and -");
 
 const bodySchema = z.object({
   quantity: z.number().int().positive(),
 });
 
-const validateProductId = (productId: string) => {
-  const idValidation = productIdSchema.safeParse(productId);
+const validateProductId = (id: string) => {
+  const idValidation = productIdSchema.safeParse(id);
   if (!idValidation.success) {
     return NextResponse.json(
       { message: "Invalid product id", issues: idValidation.error.issues },

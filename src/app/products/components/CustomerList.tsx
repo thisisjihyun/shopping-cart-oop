@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import EditablRow from "@/app/components/Form";
-import { DeleteButton, EditButton } from "@/app/components/Buttons";
+import {
+  DeleteButton,
+  AddToCartButton,
+} from "@/app/components/Buttons";
 import { FormData } from "@/app/product/type";
 import { fetchProductById } from "@/app/product/service";
 import { FormType } from "@/app/utils/formConfig";
@@ -13,25 +16,19 @@ const List = ({ product }: { product: FormData }) => {
   const [currentProduct, setCurrentProduct] = useState<FormData>(product);
 
   const handleEditComplete = async () => {
-    const updatedProduct = await fetchProductById(product.productId);
+    const updatedProduct = await fetchProductById(product.id);
     setCurrentProduct(updatedProduct.data);
     setEditingProductId(null);
   };
 
   const Row = (
-    <div
-      key={currentProduct.productId}
-      className="grid grid-cols-6 p-2 border-b"
-    >
-      <div>{currentProduct.productId}</div>
+    <div key={currentProduct.id} className="grid grid-cols-6 p-2 border-b">
       <div>{currentProduct.productName}</div>
-      <div>{currentProduct.quantity}</div>
+      {<div>{currentProduct.quantity}</div>}
       <div>{currentProduct.unitPrice}</div>
-      <EditButton
-        productId={currentProduct.productId}
-        setEditingProductId={setEditingProductId}
-      />
-      <DeleteButton productId={currentProduct.productId} />
+
+      <AddToCartButton product={currentProduct} />
+      <DeleteButton id={currentProduct.id} />
     </div>
   );
 

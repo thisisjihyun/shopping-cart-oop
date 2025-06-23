@@ -2,9 +2,9 @@ import Product from "@/domain/entities/Product";
 import ProductItem, { ProductItemProps } from "@/domain/entities/ProductItem";
 import db from "@/lib/db";
 
-const getProductById = async (productId: string) => {
-  const getProduct = db.prepare("SELECT * FROM Product WHERE productId = ?");
-  const result = getProduct.get(productId);
+const getProductById = async (id: string) => {
+  const getProduct = db.prepare("SELECT * FROM Product WHERE id = ?");
+  const result = getProduct.get(id);
   return result;
 };
 
@@ -23,22 +23,22 @@ const addProduct = async (product: ProductItemProps) => {
       const existing = db
         .prepare(
           `
-        SELECT * FROM Product WHERE productId = ?
+        SELECT * FROM Product WHERE id = ?
       `
         )
-        .get(item.productId);
+        .get(item.id);
 
       if (existing) {
         const update = db.prepare(`
           UPDATE Product
           SET quantity = ?
-          WHERE productId = ?
+          WHERE id = ?
         `);
-        update.run(item.quantity, item.productId);
+        update.run(item.quantity, item.id);
       } else {
         const insert = db.prepare(`
-          INSERT INTO Product (id, productId, productName, quantity, unitPrice)
-          VALUES (@id, @productId, @productName, @quantity, @unitPrice)
+          INSERT INTO Product (id,  productName, quantity, unitPrice)
+          VALUES (@id, @productName, @quantity, @unitPrice)
         `);
         insert.run(item);
       }
@@ -47,17 +47,21 @@ const addProduct = async (product: ProductItemProps) => {
   return updatedProduct;
 };
 
-const updateProductQuantity = async (itemId: string, quantity: number) => {
+const updateProductQuantity = async (id: string, quantity: number) => {
   const updateQuantity = db.prepare(
-    "UPDATE Product SET quantity = ? WHERE productId = ?"
+    "UPDATE Product SET quantity = ? WHERE id = ?"
   );
-  const result = updateQuantity.run(quantity, itemId);
+  const result = updateQuantity.run(quantity, id);
   return result.changes > 0;
 };
 
-const deleteProduct = async (itemId: string): Promise<boolean> => {
-  const deleteItem = db.prepare("DELETE FROM Product WHERE productId = ?");
-  const result = deleteItem.run(itemId);
+const deleteProduct = async (id: string): Promise<boolean> => {
+  const deleteOrders = db.prepare("DELETE FROM CartItem WHERE id = ?");
+  const deleteProduct = db.prepare("DELETE FROM Product WHERE id = ?");
+  deleteOrders.run(id);
+
+  const result = deleteProduct.run(id);
+
   return result.changes > 0;
 };
 

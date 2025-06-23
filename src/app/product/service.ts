@@ -12,13 +12,13 @@ export const createProduct = async (formData: FormData) => {
 };
 
 export const updateProduct = async (formData: FormData) => {
-  return await safeFetch(`/api/products/${formData.productId}`, {
+  return await safeFetch(`/api/products/${formData.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      productId: formData.productId,
+      id: formData.id,
       productName: formData.productName,
       quantity: Number(formData.quantity),
       unitPrice: Number(formData.unitPrice),
@@ -26,16 +26,15 @@ export const updateProduct = async (formData: FormData) => {
   });
 };
 
-export const deleteProduct = async (productId?: string | null) => {
-  const endpoint = productId ? `/api/products/${productId}` : "/api/products";
+export const deleteProduct = async (id?: string | null) => {
+  const endpoint = id ? `/api/products/${id}` : "/api/products";
   return await safeFetch(endpoint, {
     method: "DELETE",
   });
 };
 
-// TODO - POST to return the updated data
-export const fetchProductById = async (productId: string) => {
-  return await safeFetch(`/api/products/${productId}`, {
+export const fetchProductById = async (id: string) => {
+  return await safeFetch(`/api/products/${id}`, {
     method: "GET",
   });
 };

@@ -39,10 +39,10 @@ const useProductForm = ({
   };
 
   const onInvalid = (errors: FieldErrors<FormData>) => {
-  //   return Object.values(errors).forEach((value) => {
-  //     if (value.type === "required") setErrorMessage?.(value.message);
-  //     if (value.type === "validate") setErrorMessage?.(value.message);
-  //   });
+    //   return Object.values(errors).forEach((value) => {
+    //     if (value.type === "required") setErrorMessage?.(value.message);
+    //     if (value.type === "validate") setErrorMessage?.(value.message);
+    //   });
   };
 
   return {
@@ -51,7 +51,7 @@ const useProductForm = ({
     onInvalid,
     handleSubmit,
     register,
-    errors
+    errors,
   };
 };
 

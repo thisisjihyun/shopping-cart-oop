@@ -14,12 +14,12 @@ class Product {
 
   addProduct(product: ProductItem) {
     const existingProductItem = this.items?.find(
-      (item) => item.productId === product.productId
+      (item) => item.id === product.id
     );
 
     if (existingProductItem) {
       const existingItemIndex = this.items?.findIndex(
-        (index) => index.productId === product.productId
+        (index) => index.id === product.id
       );
 
       if (existingItemIndex !== -1) {

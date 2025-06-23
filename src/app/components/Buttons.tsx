@@ -21,15 +21,15 @@ const BaseButton = ({ className, onClick, name }: BaseButtonProps) => {
   );
 };
 
-const DeleteButton = ({ productId }: { productId?: string }) => {
+const DeleteButton = ({ id }: { id?: string }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const data = await deleteProduct(productId);
+    const data = await deleteProduct(id);
     if (data) router.refresh();
   };
 
-  return productId ? (
+  return id ? (
     <BaseButton
       className="w-1/2 bg-red-500 hover:bg-red-700"
       onClick={handleDelete}
@@ -45,16 +45,16 @@ const DeleteButton = ({ productId }: { productId?: string }) => {
 };
 
 const EditButton = ({
-  productId,
+  id,
   setEditingProductId,
 }: {
-  productId: string;
-  setEditingProductId: (productId: string) => void;
+  id: string;
+  setEditingProductId: (id: string) => void;
 }) => {
   return (
     <BaseButton
       className="w-1/2 bg-green-600 hover:bg-green-700"
-      onClick={() => setEditingProductId(productId)}
+      onClick={() => setEditingProductId(id)}
       name="Edit"
     ></BaseButton>
   );
@@ -86,7 +86,7 @@ const AddToCartButton = ({ product }: { product: any }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        productId: product.id,
+        id: product.id,
         quantity: 1,
         userId: 1,
       }),

@@ -1,24 +1,17 @@
 import db from "@/lib/db";
-import { DeleteButton } from "@/app/components/Buttons";
-import List from "@/app/components/List";
+import CustomerProductList from "./components/CustomerProductList";
+import AdminProductList from "./components/AdminProductList";
+import { getUserRole } from "./utils/getUserRole";
 
 const ProductsPage = async () => {
+  const userRole = await getUserRole();
   const data = db.prepare("SELECT * FROM Product").all();
 
-  return (
-    <>
-      <div className="grid grid-cols-6 font-semibold border-b p-3 bg-blue-500">
-        <div>ID</div>
-        <div>Name</div>
-        <div>Quantity</div>
-        <div>Price</div>
-      </div>
-      {data.map((product, index) => (
-        <List product={product} key={index} />
-      ))}
-      <DeleteButton />
-    </>
-  );
+  if (userRole === "admin") {
+    return <AdminProductList data={data} />;
+  } else {
+    return <CustomerProductList data={data} />;
+  }
 };
 
 export default ProductsPage;

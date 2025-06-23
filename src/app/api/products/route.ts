@@ -5,8 +5,6 @@ import { addProduct } from "@/services/productService";
 
 // run time validation
 const ProductSchema = z.object({
-  id: z.string().optional(),
-  productId: z.string(),
   productName: z.string(),
   quantity: z.number(),
   unitPrice: z.number(),
