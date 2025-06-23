@@ -47,11 +47,16 @@ const addProduct = async (product: ProductItemProps) => {
   return updatedProduct;
 };
 
-const updateProductQuantity = async (id: string, quantity: number) => {
+const updateProduct = async (id: string, body: number) => {
   const updateQuantity = db.prepare(
-    "UPDATE Product SET quantity = ? WHERE id = ?"
+    "UPDATE Product SET productName = ?, quantity = ?, unitPrice= ? WHERE id = ?"
   );
-  const result = updateQuantity.run(quantity, id);
+  const result = updateQuantity.run(
+    body.productName,
+    body.quantity,
+    body.unitPrice,
+    id
+  );
   return result.changes > 0;
 };
 
@@ -65,4 +70,4 @@ const deleteProduct = async (id: string): Promise<boolean> => {
   return result.changes > 0;
 };
 
-export { getProductById, addProduct, deleteProduct, updateProductQuantity };
+export { getProductById, addProduct, deleteProduct, updateProduct };

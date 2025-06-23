@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   deleteProduct,
   getProductById,
-  updateProductQuantity,
+  updateProduct,
 } from "@/services/productService";
 import {
   validateProductId,
   validateBody,
   returnNotFoundOrSuccess,
 } from "@/lib/validation";
-import { revalidatePath } from "next/cache";
 
 export async function GET(
   _: NextRequest,
@@ -35,9 +34,9 @@ export async function PATCH(
   const errorBody = validateBody(body);
   if (errorBody) return errorBody;
 
-  const success = await updateProductQuantity(id, body.quantity);
+  const success = await updateProduct(id, body);
   return returnNotFoundOrSuccess(
-    `The quantity of product ${id} has been successfully updated`,
+    `The product ${id} has been successfully updated`,
     success
   );
 }
