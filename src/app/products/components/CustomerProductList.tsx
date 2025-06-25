@@ -1,6 +1,8 @@
 import { AddToCartButton } from "@/app/components/Buttons";
+import { ProductData } from "@/app/product/type";
 // alignSelf: "center", // content vs self
-const CustomerProductList = ({ data }) => {
+
+const CustomerProductList = ({ data }: { data: ProductData[] }) => {
   return (
     <div style={{ display: "flex" }}>
       {data.map((item) => (
@@ -22,7 +24,7 @@ const CustomerProductList = ({ data }) => {
           <div>{item?.productName}</div>
           <div>€{item?.unitPrice}</div>
           <div>{item?.description}</div>
-          <AddToCartButton product={item}>Add to Cart</AddToCartButton>
+          <AddToCartButton product={item} />
         </div>
       ))}
     </div>

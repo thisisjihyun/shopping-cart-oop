@@ -51,13 +51,13 @@ export const getCartItems = () => {
   return db
     .prepare(
       `SELECT 
-  CartItem.quantity,
-  CartItem.cartId,
-  Product.id as productId,
-  Product.productName,
-  Product.unitPrice
-  FROM CartItem
-  JOIN Product ON CartItem.productId = Product.id`
+          CartItem.quantity,
+          CartItem.cartId,
+          Product.id as productId,
+          Product.productName,
+          Product.unitPrice
+          FROM CartItem
+          JOIN Product ON CartItem.productId = Product.id`
     )
     .all();
 };

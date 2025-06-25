@@ -1,31 +1,28 @@
 "use client";
 
-import { useState } from "react";
 import FormInput from "@/app/components/FormInput";
 import { formFields, FormType } from "@/app/utils/formConfig";
 import useProductForm from "@/app/hooks/useProductForm";
 import { SaveButton, SubmitButton } from "@/app/components/Buttons";
-import { FormData } from "@/app/product/type";
+import { ProductData } from "@/app/product/type";
 
 interface FormProps {
   className: string;
   type: FormType;
-  product: FormData;
-  handleEditComplete: () => void;
+  product?: ProductData;
+  handleEditComplete?: () => void;
 }
 
 const Form = ({ className, type, product, handleEditComplete }: FormProps) => {
-  const { handleSubmit, onInvalid, onValid, register, errors } = useProductForm(
-    {
-      type,
-      product,
-      handleEditComplete,
-    }
-  );
+  const { handleSubmit, onValid, register, errors } = useProductForm({
+    type,
+    product,
+    handleEditComplete,
+  });
 
   return (
     <>
-      <form onSubmit={handleSubmit(onValid, onInvalid)} className={className}>
+      <form onSubmit={handleSubmit(onValid)} className={className}>
         {formFields.map((field, index) => (
           <FormInput
             key={index}

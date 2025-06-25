@@ -1,11 +1,11 @@
-import { FormData } from "@/app/product/type";
+import { ProductData } from "@/app/product/type";
 
 export enum FormType {
   ADD = "add",
   EDIT = "edit",
 }
 
-export const defaultValues: FormData = {
+export const defaultValues: ProductData = {
   productName: "",
   quantity: 1,
   unitPrice: 1,

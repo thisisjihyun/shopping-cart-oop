@@ -9,8 +9,7 @@ export async function POST(request: Request) {
   });
 }
 
-// Question - if cartId is always same, why do we need?
-export async function GET(request: Request) {
+export async function GET() {
   const { cartItems, totalCartPrice } = getCartWithTotal();
   return new Response(JSON.stringify({ cartItems, totalCartPrice }), {
     status: 200,

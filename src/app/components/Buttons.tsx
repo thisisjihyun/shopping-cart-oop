@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { deleteProduct } from "@/app/product/service";
+import { ProductData } from "@/app/product/type";
 
 interface BaseButtonProps {
   className: string;
@@ -78,7 +79,7 @@ const SubmitButton = () => {
   );
 };
 
-const AddToCartButton = ({ product }: { product: any }) => {
+const AddToCartButton = ({ product }: { product: ProductData }) => {
   const handleAddToCart = () => {
     fetch("/api/cart", {
       method: "POST",

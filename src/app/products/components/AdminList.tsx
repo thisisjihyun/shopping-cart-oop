@@ -4,13 +4,13 @@ import { useState } from "react";
 
 import EditablRow from "@/app/components/Form";
 import { DeleteButton, EditButton } from "@/app/components/Buttons";
-import { FormData } from "@/app/product/type";
+import { ProductData } from "@/app/product/type";
 import { fetchProductById } from "@/app/product/service";
 import { FormType } from "@/app/utils/formConfig";
 
-const AdminList = ({ product }: { product: FormData }) => {
+const AdminList = ({ product }: { product: ProductData }) => {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
-  const [currentProduct, setCurrentProduct] = useState<FormData>(product);
+  const [currentProduct, setCurrentProduct] = useState<ProductData>(product);
   const handleEditComplete = async () => {
     const updatedProduct = await fetchProductById(product.id);
     setCurrentProduct(updatedProduct.data);

@@ -1,7 +1,7 @@
 import { safeFetch } from "@/app/utils/safeFetch";
-import { FormData } from "@/app/product/type";
+import { ProductData } from "@/app/product/type";
 
-export const createProduct = async (formData: FormData) => {
+export const createProduct = async (formData: ProductData) => {
   return await safeFetch("/api/products", {
     method: "POST",
     headers: {
@@ -11,19 +11,13 @@ export const createProduct = async (formData: FormData) => {
   });
 };
 
-export const updateProduct = async (formData: FormData) => {
+export const updateProduct = async (formData: ProductData) => {
   return await safeFetch(`/api/products/${formData.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      id: formData.id,
-      productName: formData.productName,
-      quantity: Number(formData.quantity),
-      unitPrice: Number(formData.unitPrice),
-      description: formData.description,
-    }),
+    body: JSON.stringify(formData),
   });
 };
 
