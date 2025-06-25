@@ -28,7 +28,7 @@ export const deleteProduct = async (id?: string | null) => {
   });
 };
 
-export const fetchProductById = async (id: string) => {
+export const fetchProductById = async (id?: string) => {
   return await safeFetch(`/api/products/${id}`, {
     method: "GET",
   });

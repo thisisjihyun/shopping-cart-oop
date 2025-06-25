@@ -4,12 +4,12 @@ import FormInput from "@/app/components/FormInput";
 import { formFields, FormType } from "@/app/utils/formConfig";
 import useProductForm from "@/app/hooks/useProductForm";
 import { SaveButton, SubmitButton } from "@/app/components/Buttons";
-import { ProductData } from "@/app/product/type";
+import { FormData } from "@/app/product/type";
 
 interface FormProps {
   className: string;
   type: FormType;
-  product?: ProductData;
+  product?: FormData;
   handleEditComplete?: () => void;
 }
 

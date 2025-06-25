@@ -49,8 +49,8 @@ const EditButton = ({
   id,
   setEditingProductId,
 }: {
-  id: string;
-  setEditingProductId: (id: string) => void;
+  id?: string;
+  setEditingProductId: (id?: string) => void;
 }) => {
   return (
     <BaseButton

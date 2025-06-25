@@ -18,7 +18,6 @@ const useProductForm = ({
   handleEditComplete,
   setErrorMessage,
 }: UseProductFormProps) => {
-  console.log('here product',product)
   const value = product || defaultValues;
   const {
     register,
