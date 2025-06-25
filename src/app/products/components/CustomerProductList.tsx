@@ -1,10 +1,11 @@
 import { AddToCartButton } from "@/app/components/Buttons";
-
+// alignSelf: "center", // content vs self
 const CustomerProductList = ({ data }) => {
   return (
     <div style={{ display: "flex" }}>
       {data.map((item) => (
         <div
+          key={item.productName}
           style={{
             background: "lightyellow",
             color: "black",
@@ -14,18 +15,13 @@ const CustomerProductList = ({ data }) => {
             margin: "10px",
           }}
         >
-          <div
-            style={{
-              width: "200px",
-              height: "200px",
-              margin: "5px",
-              background: "white",
-              alignSelf: "center", // content vs self
-            }}
-          ></div>
+          <img
+            alt="product image"
+            src="https://fastly.picsum.photos/id/493/200/200.jpg?hmac=gTkCS4bzTaN0S0X4DVmbvEYkY0QxwyorqWjnxVNHtgg"
+          ></img>
           <div>{item?.productName}</div>
-          {/* <div>{item?.quantity}</div> */}
           <div>€{item?.unitPrice}</div>
+          <div>{item?.description}</div>
           <AddToCartButton product={item}>Add to Cart</AddToCartButton>
         </div>
       ))}

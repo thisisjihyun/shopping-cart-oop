@@ -1,6 +1,6 @@
-import db from "@/lib/db";
-import { addItemToCart } from "@/services/cartService";
+import { addItemToCart, getCartWithTotal } from "@/services/cartService";
 
+// route handlers
 export async function POST(request: Request) {
   const body = await request.json();
   await addItemToCart(body);
@@ -10,21 +10,9 @@ export async function POST(request: Request) {
 }
 
 // Question - if cartId is always same, why do we need?
-// is it best to leave here? or move the db code somewhere else?
 export async function GET(request: Request) {
-  const cart = db
-    .prepare(
-      `SELECT 
-  CartItem.quantity,
-  CartItem.cartId,
-  Product.id as productId,
-  Product.productName,
-  Product.unitPrice
-  FROM CartItem
-  JOIN Product ON CartItem.productId = Product.id`
-    )
-    .all();
-  return new Response(JSON.stringify(cart), {
+  const { cartItems, totalCartPrice } = getCartWithTotal();
+  return new Response(JSON.stringify({ cartItems, totalCartPrice }), {
     status: 200,
   });
 }

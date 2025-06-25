@@ -1,26 +1,35 @@
 "use client";
 
+import { CartItemWithProduct } from "@/services/cartService";
 import { useEffect, useState } from "react";
 
+type Cart = {
+  cartItems: CartItemWithProduct[];
+  totalCartPrice: number;
+};
+
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const [data, setData] = useState<Cart | null>(null);
 
   useEffect(() => {
     fetch("/api/cart")
       .then((res) => res.json())
-      .then((data) => setCart(data));
+      .then((data) => setData(data));
   }, []);
+
   return (
-    <div>
-      {cart?.map((item, i) => (
-        <div key={i} className="flex">
-          <div>name: {item.productName}</div>
-          <div>quantity: {item.quantity}</div>
-          <div>unit price: {item.unitPrice}</div>
-          <div>description: {item.description}</div>
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        {data?.cartItems?.map((item, i) => (
+          <div key={i} className="flex">
+            <div>name: {item.productName}</div>
+            <div>quantity: {item.quantity}</div>
+            <div>unit price: {item.unitPrice}</div>
+          </div>
+        ))}
+      </div>
+      <div>total price: €{data?.totalCartPrice}</div>
+    </>
   );
 };
 
