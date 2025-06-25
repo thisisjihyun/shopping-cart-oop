@@ -1,4 +1,4 @@
-export interface ProductData {
+export interface FormData {
   id?: string;
   productName: string;
   quantity: number;
@@ -6,9 +6,19 @@ export interface ProductData {
   description: string;
 }
 
-export interface FromInputProps {
-  label?: string;
-  id: string;
-  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
-  defaultValue?: string | number;
-}
+type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement>;
+type TextareaFieldProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export type FormInputProps =
+  | {
+      as?: "input";
+      id: string;
+      label?: string;
+      inputProps?: InputFieldProps;
+    }
+  | {
+      as: "textarea";
+      id: string;
+      label?: string;
+      inputProps?: TextareaFieldProps;
+    };

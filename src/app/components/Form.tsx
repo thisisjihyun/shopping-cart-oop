@@ -28,6 +28,7 @@ const Form = ({ className, type, product, handleEditComplete }: FormProps) => {
             key={index}
             id={field.id}
             label={field.label}
+            as={field.id === "description" ? "textarea" : "input"}
             inputProps={{
               ...register(field.id, {
                 required: "This field is required",

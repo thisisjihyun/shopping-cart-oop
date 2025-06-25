@@ -20,8 +20,8 @@ export const formFields: Array<{
 }> = [
   {
     id: "productName",
-    label: "Product Name",
-    type: "text",
+    label: "Name",
+    type: "string",
     defaultValue: "",
   },
   {
@@ -39,7 +39,7 @@ export const formFields: Array<{
   {
     id: "description",
     label: "Description",
-    type: "text",
+    type: "string",
     defaultValue: "",
   },
 ];
