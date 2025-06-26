@@ -18,7 +18,7 @@ const AdminList = ({ product }: { product: ProductData }) => {
   };
 
   const Row = (
-    <div className="grid grid-cols-6 p-2 border-b">
+    <div className="grid grid-cols-6 p-2 border-b break-words">
       <div>{currentProduct.productName}</div>
       <div>{currentProduct.quantity}</div>
       <div>{currentProduct.unitPrice}</div>

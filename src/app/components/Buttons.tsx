@@ -13,7 +13,7 @@ interface BaseButtonProps {
 const BaseButton = ({ className, onClick, name }: BaseButtonProps) => {
   return (
     <button
-      className={`px-4 py-2 font-semibold rounded transition-colors duration-200 ${className}`}
+      className={`h-12 px-4 py-2 text-white font-semibold rounded transition-colors duration-200 ${className}`}
       onClick={onClick}
       type="submit"
     >
@@ -32,7 +32,7 @@ const DeleteButton = ({ id }: { id?: string }) => {
 
   return id ? (
     <BaseButton
-      className="w-1/2 bg-red-500 hover:bg-red-700"
+      className="w-1/2 bg-red-500 hover:bg-red-700 justify-self-center"
       onClick={handleDelete}
       name="Delete"
     ></BaseButton>
@@ -54,7 +54,7 @@ const EditButton = ({
 }) => {
   return (
     <BaseButton
-      className="w-1/2 bg-green-600 hover:bg-green-700"
+      className="w-1/2 bg-green-600 hover:bg-green-700 justify-self-center"
       onClick={() => setEditingProductId(id)}
       name="Edit"
     ></BaseButton>
@@ -64,7 +64,7 @@ const EditButton = ({
 const SaveButton = () => {
   return (
     <BaseButton
-      className="bg-blue-600 hover:bg-blue-700"
+      className="bg-blue-600 hover:bg-blue-700 justify-self-center"
       name="Save"
     ></BaseButton>
   );
@@ -95,7 +95,7 @@ const AddToCartButton = ({ product }: { product: ProductData }) => {
   };
   return (
     <BaseButton
-      className="bg-blue-600 hover:bg-blue-700"
+      className="bg-blue-600 hover:bg-blue-700 self-center"
       name="Add to Cart"
       onClick={handleAddToCart}
     ></BaseButton>

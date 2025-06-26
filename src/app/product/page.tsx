@@ -4,7 +4,7 @@ import { FormType } from "@/app/utils/formConfig";
 const ProductPage = () => {
   return (
     <>
-      <h1 className="text-3xl font-semibold rounded-lg text-center">
+      <h1 className="text-3xl font-semibold rounded-lg text-center m-6">
         Add a product
       </h1>
       <Form
