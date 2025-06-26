@@ -8,7 +8,7 @@ const ProductPage = () => {
         Add a product
       </h1>
       <Form
-        className="w-full max-w-md mx-auto p-6 rounded-lg space-y-4"
+        className="w-full max-w-md mx-auto rounded-lg space-y-4"
         type={FormType.ADD}
       />
     </>
